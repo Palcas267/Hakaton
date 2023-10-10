@@ -1,0 +1,35 @@
+{% extends 'base.html' %}
+{% block body %}
+    <div style="border-bottom: 2px solid; display: flex; flex-direction: row; padding: 5%; padding-top: 10%; justify-content: space-around">
+        <form method="post" style="display: flex; flex-direction: column; justify-content: space-between; padding: 1%;">
+            <h3 class="headline3" style="font-size: 3.5vw">Регистрация</h3>
+            <small style="color: red">{{ message }}</small>
+            <input type="text" id="nickname" name="nickname" style="color: white; background: rgba(56, 75, 82, 0);" class="form-control register" placeholder="Введите Login..." required>
+            <input type="email" id="email" name="email" style="color: white; background: rgba(56, 75, 82, 0); font-size" class="form-control register" placeholder="Введите E-Mail..." required>
+            <button type="submit" id="sign-in" class="btn orange-circle-btn" style="font-size: 1.5vw; align-self: flex-start; margin-top: 13%; padding-right: 4%; padding-left: 4%;" disabled>Продолжить ➜</button>
+        </form>
+        <div style="display: flex; flex-direction: column; justify-content: space-between; word-break: break-all; padding: 1%; padding-left: 3%; max-width: 60%">
+            <span class="section-text" style="color: #BCBCBC;">БОООООООООООООООООООльшой тывапваролдвыф рраы роаыфроа орыфвпа ывфва ыфпваsdaf sagfu dsgfasdf hjdsg fds  sa shjagfhjsag fjhsag fsa fsgajhf gasjhfgd asjhdgfjsadg fkjasdg fdsg ajfgasdjkhfgasd jgfhjsdgfjhksad gfjhsadgf hasdghjkыфв проа пывфпаоыфпаоывпфоар пывфорап фыорпаорфывпао рлфывпорап ывфолапвыофлп алоывф поарлв ыфв аывфпар нывфпангывпфнгапвынга пывфа пгнвыфп агн пыфгнпа гны пфнап нг пыфнга пыфнп ангыфпекстатик</span>
+            <label class="section-text" style="color: white"><input class="form-check-input" onclick="button_undisabled()" id="sogl" type="checkbox"> Я соглашаюсь и принимаю условия пользования сайта</label>
+        </div>
+    </div>
+<script>
+    document.getElementById('sogl').addEventListener('input', () => {
+                if (document.getElementById('sogl').checked) {
+                    button_undisabled()
+                }
+             });
+
+            function button_undisabled(){
+                if (document.getElementById('sogl').checked) {
+                    document.getElementById('sign-in').disabled = false;
+                    }
+                else {
+                    document.getElementById('sign-in').disabled = true;
+                    }
+               }
+</script>
+{% endblock %}
+{% block title %}
+Регистрация
+{% endblock %}

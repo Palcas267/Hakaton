@@ -1,0 +1,17 @@
+{% extends 'base.html' %}
+{% block body %}
+    <div style="border-bottom: 2px solid; display: flex; flex-direction: row; background-color: #2D3047; padding: 5%; padding-top: 10%; justify-content: space-around">
+        <form method="post" style="display: flex; flex-direction: column; justify-content: space-between; padding: 1%;">
+            <h3 class="headline3" style="font-size: 3.5vw">Вход</h3>
+            <small style="color: red">{{ message }}</small>
+            <input type="email" id="email" name="email" style="color: white; background: rgba(56, 75, 82, 0); font-size" class="form-control register" placeholder="Введите E-Mail..." required>
+            <button type="submit" id="sign-in" class="btn orange-circle-btn" style="font-size: 1.5vw; align-self: flex-start; margin-top: 13%; padding-right: 4%; padding-left: 4%;">Продолжить ➜</button>
+        </form>
+        <div style="display: flex; flex-direction: column; justify-content: space-between; word-break: break-all; padding: 1%; padding-left: 3%; max-width: 60%">
+            <span class="section-text" style="color: #BCBCBC;">Подсказки:<br> Если у вас не получилось войти по почте, возможно она откреплена, подробнее вы можете узнать у себя на почте. <br> Если ваша почта была утеряна, есть возможность восстановить аккаунт по покупкам. <br> Если ничего из перечиленного не подходит, напишите в поддержку, которая указанна в самом низу.</span>
+        </div>
+    </div>
+{% endblock %}
+{% block title %}
+Вход
+{% endblock %}

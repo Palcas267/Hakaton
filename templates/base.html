@@ -1,0 +1,59 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Саламалейкум</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC" crossorigin="anonymous">
+    <link rel="shortcut icon" href="static/images/icon.png">
+    <link rel="stylesheet" href="static/styles.css">
+</head>
+<body style="background-color: #C6DABF">
+    <div class="header" style="background-color: #88AB75">
+        <nav class="py-2 bg-body-tertiary" style="background-color: #88AB75;">
+            <div class="container d-flex flex-wrap">
+              <ul class="nav me-auto">
+                <li class="nav-item"><a href="/" type="button" class="header-ref" aria-current="page" style="vertical-align: middle; font-weight: 600;">Главная</a></li>
+                <li class="nav-item"><a href="/catalog" type="button" class="header-ref" style="vertical-align: middle; font-weight: 600;">Бронирование</a></li>
+                <li class="nav-item"><a href="/" class="header-ref" style="vertical-align: middle; font-weight: 600;">Продукция</a></li>
+                <li class="nav-item"><a href="/" class="header-ref" style="vertical-align: middle; font-weight: 600;">О нас</a></li>
+                <li class="nav-item"><a href="/" class="header-ref" style="vertical-align: middle; font-weight: 600;">Контакты</a></li>
+                <li class="nav-item"><a href="/" class="header-ref" style="vertical-align: middle; font-weight: 600;">Мероприятия</a></li>
+              </ul>
+              <ul class="nav">
+                <li class="nav-item"><a type="button"  class="header-ref" style="vertical-align: middle; font-weight: 600;">Корзина</a></li>
+                <li class="nav-item"><a type="button" href="/sign-in" class="header-ref" style="">Войти</a></li>
+                <li class="nav-item"><a type="button" href="/register" class="header-ref" style="">Регистрация</a></li>
+
+                <li class="nav-item"><a type="button" href="/profile" class="header-ref" style="border-radius: 50%;"><img src="static/images/person.png" style="width: 2vw"></a></li>
+
+              </ul>
+            </div>
+        </nav>
+    </div>
+  <div>
+      {% block body %}{% endblock %}
+  </div>
+<footer>
+    <div style="display: flex; justify-content: flex-start; flex-direction: row; padding: 2%; height: 450px; flex-wrap: wrap;">
+        <div style="display: flex; justify-content: flex-start; flex-direction: column; margin-left: 3%;">
+            <h3 class="footer-headline">Соц. сети:</h3>
+            <a class="section-text" style="color: black; opacity: 0.75;" href="https://vk.com/weekendvmywer">Наше VK</a>
+        </div>
+        <div style="display: flex; justify-content: flex-start; flex-direction: column; margin-left: 3%;">
+            <h3 class="footer-headline">Общение:</h3>
+            <span class="section-text" style="color: black; opacity: 0.75;">example@exmail.com</span>
+        </div>
+        <div style="display: flex; justify-content: flex-start; flex-direction: column; flex-start; margin-left: 3%; justify-self: center;">
+            <h3 class="footer-headline">Исходный код:</h3>
+            <a class="section-text" href="https://github.com/Palcas267/KrasTour_hakaton.git" style="color: black; opacity: 0.75;">GitHub</a>
+        </div>
+    </div>
+    <div style="display: flex; justify-content: flex-start; flex-direction: row; padding: 2%;">
+        <a type="button" class="header-ref section-text" style="vertical-align: middle; margin-left: 3%; color: black; opacity: 0.8;">О нас</a>
+        <a class="header-ref section-text" href="/catalog" style="margin-left: 3%; color: black; opacity: 0.75;">Бронирование</a>
+        <a type="button" class="header-ref section-text" style="vertical-align: middle; margin-left: 3%; color: black; opacity: 0.75;">Поддержка</a>
+    </div>
+    <div style="display: flex; justify-content: flex-start; flex-direction: row; padding: 2%;">
+        <span class="section-text" style="color: black; opacity: 0.75;">@Сайт создан в рамках участия команды Develop bulder’s в хакатоне. Наша команда желает вам приятного времяпрепровождения.</span>
+    </div>
+</footer>
