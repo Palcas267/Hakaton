@@ -1,10 +1,23 @@
 from flask import render_template, Flask, request, redirect, flash
-from flask_login import LoginManager, login_user, logout_user, current_user
+#from flask_login import LoginManager, login_user, logout_user, current_user, login_required
 from werkzeug.security import check_password_hash, generate_password_hash
-from config import app, login_manager, db
 from base import *
+from flask_sqlalchemy import SQLAlchemy
 
-@app.route('/index')
+
+"""@login_manager.user_loader
+def load_user(user_id):
+    return db.session.query(Users).get(user_id)
+
+
+@app.route('/logout')
+@login_required
+def logout():
+    logout_user()
+    return redirect('/register')"""
+
+
+@app.route('/')
 def index():
     return render_template('index.html')
 
@@ -28,7 +41,7 @@ def register():
         try:
             db.session.add(user_to_add)
             db.session.commit()
-            login_user(user_to_add, remember=True)
+            #login_user(user_to_add, remember=True)
             return redirect('/')
         except:
             message = 'Укажите другую почту или имя пользователя'
@@ -39,11 +52,11 @@ def register():
 
 @app.route('/login')
 def login():
-    if request.method == "GET":
+    """if request.method == "GET":
         if current_user.is_authenticated:
             flash("Вы уже авторизованы")
             return redirect("/")
-        return render_template("login.html")
+        return render_template("login.html")"""
     username = request.form.get('username')
     password = request.form.get('password')
     user = Users.query.filter_by(username=username).first()
@@ -51,7 +64,7 @@ def login():
         flash('Такого пользователя не существует')
         return redirect("/login")
     if check_password_hash(user.password, password):
-        login_user(user)
+        #login_user(user)
         return redirect('/')
     else:
         flash('Неверный логин или пароль')
@@ -68,7 +81,10 @@ def contacts():
     return render_template('contacts.html')
 
 
-@app.route('/worldviews')
-def worldviews():
-    return render_template('worldviews.html')
+@app.route('/events')
+def events():
+    return render_template('events.html')
 
+
+if __name__ == '__main__':
+    app.run(debug=True)

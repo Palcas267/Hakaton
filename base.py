@@ -1,9 +1,10 @@
 from flask import redirect, request, Flask
+#from flask_login import UserMixin
 from flask_sqlalchemy import SQLAlchemy
 from config import db, app
 
 
-class Users(db.Model):
+class Users(db.Model, ):
     id = db.Column(db.Integer, primary_key=True)
     login = db.Column(db.String, nullable=False)
     name = db.Column(db.String, nullable=False, default='Пользователь')
@@ -24,7 +25,7 @@ class Users(db.Model):
         return "ID: {}, Логин: {}, Имя: {}, Фамилия: {}, Почта: {}, admin: {}, Бронирование: {}".format(self.id, self.login, self.name, self.last_name, self.mail, self.admin, self.bktrip)
 
 
-class items(db.Model):
+class Items(db.Model):
     id = db.Column(db.Integer, primary_key=True)
     name = db.Column(db.String, nullable=False)
     cost = db.Column(db.Integer, nullable=False)
@@ -37,7 +38,7 @@ class items(db.Model):
         return "ID: {}, Товар: {}, Цена: {}".format(self.id, self.name, self.cost)
 
 
-class locate(db.Model):
+class Locate(db.Model):
     id = db.Column(db.Integer, primary_key=True)
     name = db.Column(db.String, nullable=False)
     cost = db.Column(db.Integer, nullable=False)
@@ -50,7 +51,7 @@ class locate(db.Model):
         return "ID: {}, Товар: {}, Цена: {}".format(self.id, self.name, self.cost)
 
 
-class route(db.Model):
+class Route(db.Model):
     id = db.Column(db.Integer, primary_key=True)
     names = db.Column(db.String, nullable=False)
     name = db.Column(db.String, nullable=False)
@@ -75,4 +76,6 @@ with app.app_context():
     #db.session.add(Users("Катя", 13, 15300))
     #db.session.add_all([])# добавить список объектов в бд
     #db.session.commit()  # сохрание изменений
+
+
 
