@@ -1,28 +1,30 @@
 {% extends 'base.html' %}
 {% block body %}
-<div style="display: flex; flex-direction: row;">
-    <div id="main-catalog" style="background: linear-gradient(to bottom right, #7C7C7C, #383D3B);">
-        <a type="button" href="/redactor/rental" class="btn orange-circle-btn">Добавить</a>
-      {% for i in data %}
-        <div class="item" style="background-color: #88AB75; align-self: flex-start;">
-            <a href="" style="display: block; text-decoration: none;">
-                <div style="margin-bottom: 0.4em; ">
-                    <div style="height: 282px; width: 384px; background: url('{{ i.img }}'); border: 0.7rem solid #88AB75; background-position: center center; background-size: cover; display: flex; justify-content: center; flex-direction: column; align-items: flex-end;">
-                        <span class="price">{{ i.cost }} руб</span>
+<div style="padding-top: 5%" class="container">
+    <a type="button" href="/create/{{ mode }}" style="margin-bottom: 1%" class="btn orange-circle-btn">Добавить</a>
+    <div style="display: flex; flex-direction: row;">
+        <div id="main-catalog" style="background: linear-gradient(to bottom right, #7C7C7C, #383D3B);">
+          {% for i in data %}
+            <div class="item" style="background-color: #88AB75; align-self: flex-start;">
+                <a href="" style="display: block; text-decoration: none;">
+                    <div style="margin-bottom: 0.4em; ">
+                        <div style="height: 282px; width: 384px; background: url('{{ i.img }}'); border: 0.7rem solid #88AB75; background-position: center center; background-size: cover; display: flex; justify-content: center; flex-direction: column; align-items: flex-end;">
+                            <span class="price">{{ i.cost }} руб</span>
+                        </div>
+                        <div class="item-inf" style="padding-left: 2%;">
+                            <div style="text-align: center;">{{ i.name }}</div>
+                        </div>
+                        {% if i.active %}
+                        <a class="btn btn-success" href="/show/{{ mode }}/{{ i.id }}" type="button">Скрыть</a>
+                        {% elif not i.active %}
+                        <a class="btn btn-success" href="/show/{{ mode }}/{{ i.id }}" type="button">Показать</a>
+                        {% endif %}
+                        <a class="btn btn-success" href="/delete/{{ mode }}/{{ i.id }}" type="button">Удалить</a>
                     </div>
-                    <div class="item-inf" style="padding-left: 2%;">
-                        <div style="text-align: center;">{{ i.name }}</div>
-                    </div>
-                    {% if i.active %}
-                    <a class="btn btn-success" href="/show/{{ mode }}/{{ i.id }}" type="button">Скрыть</a>
-                    {% elif not i.active %}
-                    <a class="btn btn-success" href="/show/{{ mode }}/{{ i.id }}" type="button">Показать</a>
-                    {% endif %}
-                    <a class="btn btn-success" href="/delete/{{ mode }}/{{ i.id }}" type="button">Показать</a>
-                </div>
-            </a>
+                </a>
+            </div>
+          {% endfor %}
         </div>
-      {% endfor %}
     </div>
 </div>
 {% endblock %}

@@ -1,6 +1,6 @@
 import datetime
 from flask import Flask, render_template, request, redirect
-#from flask_login import LoginManager
+from flask_login import LoginManager
 from flask_sqlalchemy import SQLAlchemy
 
 app = Flask(__name__)
@@ -12,5 +12,5 @@ app.config['UPLOAD_FOLDER'] = 'static/images/'
 
 adminpass = 'error123'
 
-#login_manager = LoginManager(app)
-#login_manager.login_view = 'authorization'
+login_manager = LoginManager(app)
+login_manager.login_view = 'authorization'

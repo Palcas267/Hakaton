@@ -4,51 +4,51 @@
         <div id="main-catalog" style="background: linear-gradient(to bottom right, #7C7C7C, #383D3B);">
           {% for i in data %}
             <div class="item" style="background-color: #88AB75; align-self: flex-start;">
-                <a href="" style="display: block; text-decoration: none;">
-                    <div style="margin-bottom: 0.4em; ">
-                        <div style="height: 282px; width: 384px; background: url('static/images/green_hills.jpg'); background-position: center center; background-size: cover; display: flex; justify-content: center; flex-direction: column; align-items: flex-end;">
-                            <span class="price">{{ i.cost }}</span>
+                    <a href="" style="display: block; text-decoration: none;">
+                        <div style="margin-bottom: 0.4em; ">
+                            <div style="border: 0.7vw solid #88AB75; height: 282px; width: 384px; background: url('{{ i.img }}'); background-position: center center; background-size: cover; display: flex; justify-content: center; flex-direction: column; align-items: flex-end;">
+                                <span class="price">{{ i.cost }} руб</span>
+                            </div>
+                            <div class="item-inf" style="padding-left: 2%;">
+                                <div style="text-align: center;">{{ i.name }}</div>
+                            </div>
                         </div>
-                        <div class="item-inf" style="padding-left: 2%;">
-                            <div style="text-align: center;">{{ i.name }}</div>
-                            <div style="word-break: break-all; padding: 2%">Lorem yuasdfgyusdagfuyasdgfyudasgfyjasdgfsdfkjhhufciur yas youasdfj iaosdfhkjla sfdk jlhasdaaskdj blhfklasjfd asfhdl kj</div>
-                        </div>
-                    </div>
-                </a>
-            </div>
+                    </a>
+                    <a href="/" type="button" class="btn orange-circle-btn" style="font-size: 1.4vw !important; margin: 0.5vw">В корзину</a>
+                </div>
+            <script>
+
+                document.getElementById('count_{{ i.id }}').addEventListener('input', () => {
+                    if (document.getElementById('count_{{ i.id }}').value === '') {
+                        document.getElementById('count_{{ i.id }}').value = 1
+                        button_undisabled{{ i.id }}()
+                    }
+                 });
+
+                function buttonClickMinus{{ i.id }}(elem) {
+                    if (document.getElementById('count_{{ i.id }}').value < 2) {
+                        window.location.href = '/delete/{{ i.id }}';
+                    }
+                    else {
+                        document.getElementById('count_{{ i.id }}').value -= 1
+                    }
+                }
+                function buttonClickPlus{{ i.id }}(elem){
+                    document.getElementById('count_{{ i.id }}').value++
+                }
+                function button_undisabled{{ i.id }}(){
+                    if (document.getElementById('count_{{ i.id }}').value.length > 0) {
+                        document.getElementById('sub_count{{ i.id }}').disabled = false;
+                        }
+                    else {
+                        document.getElementById('sub_count{{ i.id }}').disabled = true;
+                        }
+                   }
+
+            </script>
           {% endfor %}
         </div>
     </div>
-    <script>
-
-        document.getElementById('count_{{ i.id }}').addEventListener('input', () => {
-            if (document.getElementById('count_{{ i.id }}').value === '') {
-                document.getElementById('count_{{ i.id }}').value = 1
-                button_undisabled{{ i.id }}()
-            }
-         });
-
-        function buttonClickMinus{{ i.id }}(elem) {
-            if (document.getElementById('count_{{ i.id }}').value < 2) {
-                window.location.href = '/delete/{{ i.id }}';
-            }
-            else {
-                document.getElementById('count_{{ i.id }}').value -= 1
-            }
-        }
-        function buttonClickPlus{{ i.id }}(elem){
-            document.getElementById('count_{{ i.id }}').value++
-        }
-        function button_undisabled{{ i.id }}(){
-            if (document.getElementById('count_{{ i.id }}').value.length > 0) {
-                document.getElementById('sub_count{{ i.id }}').disabled = false;
-                }
-            else {
-                document.getElementById('sub_count{{ i.id }}').disabled = true;
-                }
-           }
-
-    </script>
 
 {% endblock %}
 {% block title %}

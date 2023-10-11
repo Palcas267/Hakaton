@@ -18,15 +18,16 @@
                 <div class="item" style="background-color: #88AB75; align-self: flex-start;">
                     <a href="" style="display: block; text-decoration: none;">
                         <div style="margin-bottom: 0.4em; ">
-                            <div style="height: 282px; width: 384px; background: url('static/images/green_hills.jpg'); background-position: center center; background-size: cover; display: flex; justify-content: center; flex-direction: column; align-items: flex-end;">
+                            <div style="border: 0.7vw solid #88AB75; height: 282px; width: 384px; background: url('{{ i.img }}'); background-position: center center; background-size: cover; display: flex; justify-content: center; flex-direction: column; align-items: flex-end;">
                                 <span class="price">{{ i.cost }} руб</span>
                             </div>
                             <div class="item-inf" style="padding-left: 2%;">
                                 <div style="text-align: center;">{{ i.name }}</div>
-                                <div style="word-break: break-all; padding: 2%">{{ i.descript }}</div>
+                                <div style="word-break: break-all; padding: 2%">{{ i.descript }}...</div>
                             </div>
                         </div>
                     </a>
+                    <a href="/" type="button" class="btn orange-circle-btn" style="font-size: 1.4vw !important; margin: 0.5vw">В корзину</a>
                 </div>
             {% endfor %}
         </div>

@@ -8,7 +8,7 @@
     <link rel="stylesheet" href="/static/styles.css">
 </head>
 <body style="background-color: #f4f0e6;">
-    <div class="header" style="background-color: #88AB75;">
+    <header class="header" style="background-color: #88AB75;">
         <nav class="py-2 bg-body-tertiary" style="background-color: #88AB75;">
             <div class="container d-flex flex-wrap">
               <ul class="nav me-auto">
@@ -24,12 +24,10 @@
                 <li class="nav-item"><a type="button" href="/login" class="header-ref" style="">Войти</a></li>
                 <li class="nav-item"><a type="button" href="/register" class="header-ref" style="">Регистрация</a></li>
 
-                <li class="nav-item"><a type="button" href="/profile" class="header-ref" style="border-radius: 50%;"><img src="static/images/person.png" style="width: 2vw"></a></li>
-
               </ul>
             </div>
         </nav>
-    </div>
+    </header>
   <div>
       {% block body %}{% endblock %}
   </div>

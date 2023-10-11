@@ -1,17 +1,17 @@
 from flask import redirect, request, Flask
-#from flask_login import UserMixin
+from flask_login import UserMixin
 from flask_sqlalchemy import SQLAlchemy
 from config import db, app
 
 
-class Users(db.Model, ):
+class Users(db.Model, UserMixin):
     id = db.Column(db.Integer, primary_key=True)
     login = db.Column(db.String, nullable=False)
     name = db.Column(db.String, nullable=False, default='Пользователь')
     last_name = db.Column(db.String, nullable=False, default='Пользователь')
     mail = db.Column(db.String, nullable=False)
     admin = db.Column(db.Boolean, nullable=False, default=False)
-    bktrip = db.Column(db.Text)
+    bktrip = db.Column(db.Text, default=None)
 
     def __init__(self, login, name, last_name, mail, admin, bktrip):
         self.login = login
@@ -87,12 +87,15 @@ class Rental(db.Model):
     cost = db.Column(db.Integer, nullable=False)
     img = db.Column(db.Text, nullable=False)
     active = db.Column(db.Boolean, default=True)
+    descript = db.Column(db.Text, nullable=False)
 
-    def __init__(self, name, cost, active, img):
+    def __init__(self, name, cost, active, img, descript):
         self.name = name
         self.cost = cost
         self.active = active
         self.img = img
+        self.descript = descript
+
 
     def __str__(self):
         return "ID: {}, Название: {}, Цена: {}, Тип аренды: {}".format(self.id, self.name, self.cost, self.type)
