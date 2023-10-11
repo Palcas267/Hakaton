@@ -87,7 +87,11 @@ def show(type, id):
 
 @app.route('/')
 def index():
-    return render_template('index.html')
+    locate = Locate.query.first()
+    rental = Rental.query.first()
+    route = Route.query.first()
+    items = [locate, rental, route]
+    return render_template('index.html', data=items)
 
 
 @app.route('/catalog')
@@ -317,7 +321,7 @@ def create(mode):
                 elif mode == 'route':
                     item = Route(name=title, cost=price, img=img_track, descript=descript, names=locations, active=True)
                 elif mode == 'events':
-                    item = Events(name=title, cost=price, img=img_track, descript=descript, active=True, time=datetimee)
+                    item = Events(name=title, img=img_track, descript=descript, active=True, time=datetimee)
                 else:
                     item = Rental(name=title, cost=price, img=img_track, descript=descript, active=True)
 

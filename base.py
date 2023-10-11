@@ -104,15 +104,13 @@ class Rental(db.Model):
 class Events(db.Model):
     id = db.Column(db.Integer, primary_key=True)
     name = db.Column(db.String, nullable=False)
-    cost = db.Column(db.Integer, nullable=False)
     img = db.Column(db.Text, default='/static/images/i.webp')
     descript = db.Column(db.Text, nullable=False)
     active = db.Column(db.Boolean, default=True)
     time = db.Column(db.DateTime, default=datetime.datetime.today().replace(second=0, microsecond=0))
 
-    def __init__(self, name, cost, img, descript, active, time):
+    def __init__(self, name, img, descript, active, time):
         self.name = name
-        self.cost = cost
         self.img = img
         self.descript = descript
         self.active = active
