@@ -73,6 +73,14 @@ class Rental(db.Model):
     cost = db.Column(db.Integer, nullable=False)
     type = db.Column(db.String, nullable=False)
 
+    def __init__(self, name, cost, type):
+        self.name = name
+        self.cost = cost
+        self.type = type
+
+    def __str__(self):
+        return "ID: {}, Название: {}, Цена: {}, Тип аренды: {}".format(self.id, self.name, self.cost, self.type)
+
 
 def Print(list):
     for e in list:
