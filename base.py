@@ -66,6 +66,13 @@ class Route(db.Model):
         return "ID: {}, Места: {}, Название маршрута: {}, Цена: {}".format(self.id, self.names, self.name, self.cost)
 
 
+class Rental(db.Model):
+    id = db.Column(db.Integer, primary_key=True)
+    name = db.Column(db.String, nullable=False)
+    cost = db.Column(db.Integer, nullable=False)
+    type = db.Column(db.String, nullable=False)
+
+
 def Print(list):
     for e in list:
         print(e)
