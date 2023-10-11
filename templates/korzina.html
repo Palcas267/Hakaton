@@ -1,0 +1,69 @@
+{% extends 'base.html' %}
+
+
+{% block title %}
+{% block page_title %}
+Корзина
+{% endblock %}
+{% endblock %}
+
+<!--<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>-->
+{% block body %}
+    {% if data %}
+<div style="display: flex; justify-content: left; flex-direction: row; flex-wrap: wrap">
+    {% for i in data %}
+        <div style="flex-shrink: 0; width: 31%; word-break: break-all; padding: 0.5em; box-shadow: 0 1px 2px 0 rgba(0,0,0,.16);">
+            <a href="/item/{{ i.id }}" class="section-ref" name="{{ i.id }}">
+                <img src="{{ i.img_track }}">
+                <div class="section-text">{{ i.title }}</div>
+                <span class="section-text">{{ i.price }} pуб.</span>
+            </a>
+            <form method="post">
+                <button onclick="buttonClickMinus{{ i.id }}(), button_undisabled{{ i.id }}()" type="button" class="btn btn-success" style="background-color: #8c897a; border-color: rgb(140, 137, 122);">-</button><!--
+             --><input id="count_{{ i.id }}" name="count_{{ i.id }}" type="number" value="{{ dict.get(i.id) }}" style="margin-left: 0.1em; margin-right: 0.1em; padding-top: 2.5px; padding-bottom: 0.45em; width: 2.5em"><!--
+             --><button onclick="buttonClickPlus{{ i.id }}(), button_undisabled{{ i.id }}()" type="button" class="btn btn-success" style="background-color: rgb(140, 137, 122); border-color: rgb(140, 137, 122);">+</button><!--
+             --><button type="submit" name="sub_count{{ i.id }}" id="sub_count{{ i.id }}" class="btn btn-success" style="margin-left: 0.2em; background-color: rgb(140, 137, 122); border-color: rgb(140, 137, 122);" disabled>Изменить</button>
+            </form>
+            <a href="/delete/{{ i.id }}" type="button" class="btn btn-success" style="background-color: #8c897a; border-color: rgb(140, 137, 122); margin-top: 0.8em" >Убрать</a>
+        </div>
+        <script>
+
+            document.getElementById('count_{{ i.id }}').addEventListener('input', () => {
+                if (document.getElementById('count_{{ i.id }}').value === '') {
+                    document.getElementById('count_{{ i.id }}').value = 1
+                    button_undisabled{{ i.id }}()
+                }
+             });
+
+            function buttonClickMinus{{ i.id }}(elem) {
+                if (document.getElementById('count_{{ i.id }}').value < 2) {
+                    window.location.href = '/delete/{{ i.id }}';
+                }
+                else {
+                    document.getElementById('count_{{ i.id }}').value -= 1
+                }
+            }
+            function buttonClickPlus{{ i.id }}(elem){
+                document.getElementById('count_{{ i.id }}').value++
+            }
+            function button_undisabled{{ i.id }}(){
+                if (document.getElementById('count_{{ i.id }}').value.length > 0) {
+                    document.getElementById('sub_count{{ i.id }}').disabled = false;
+                    }
+                else {
+                    document.getElementById('sub_count{{ i.id }}').disabled = true;
+                    }
+               }
+
+        </script>
+    {% endfor %}
+</div>
+    {% else %}
+        <div style="text-align: center; margin-top: 3em;"><h2 style="font-size: x-large" class="section-text">Тут пока ничего нет!</h2><br><a href="/catalog" type="button" class="btn btn-success" style="padding: 0.5em; padding-left: 0.6em; padding-right: 0.6em; border: none; background-color: rgb(59, 58, 58); margin-top: 1em; margin-bottom: 1.2em;"><h4>В каталог</h4></a></div>
+    {% endif %}
+{% if payment_button == True %}
+<br>
+<a type="button" class="btn btn-success" href="/" style="background-color: rgb(140, 137, 122); margin-top: 3em; border-color: rgb(140, 137, 122);">Оплатить</a>
+<p class="section-text" style="margin-top: 0.5em">Сумма: <b style="color: rgb(99, 99, 59)">{{ sum_of_items }}</b> руб.</p>
+{% endif %}
+{% endblock %}
