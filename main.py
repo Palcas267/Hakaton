@@ -8,6 +8,7 @@ from config import adminpass, login_manager
 import os
 import datetime
 
+
 def str_to_int_keys(dict_in):
     cash_ = {}
     for key, val in dict_in.items():
@@ -85,13 +86,20 @@ def show(type, id):
     return redirect(f'/redactor/{type}')
 
 
+@app.route('/profile')
+def profile():
+    return render_template('profile.html', current_user=current_user)
+
+
 @app.route('/')
 def index():
     locate = Locate.query.first()
     rental = Rental.query.first()
     route = Route.query.first()
     items = [locate, rental, route]
-    return render_template('index.html', data=items)
+    milk_products = Items.query.all()[0:2]
+    events = Events.query.order_by(Events.time)
+    return render_template('index.html', data=items, milk=milk_products, events=events)
 
 
 @app.route('/catalog')

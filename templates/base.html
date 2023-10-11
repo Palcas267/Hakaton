@@ -21,8 +21,12 @@
               </ul>
               <ul class="nav">
                 <li class="nav-item"><a href="/basket"  class="header-ref" style="vertical-align: middle; font-weight: 600;">Корзина</a></li>
+                  {% if current_user.is_authenticated %}
+                  <li class="nav-item"><a type="button" href="/profile" class="header-ref" style="border-radius: 50%;"><img src="static/images/person.png" style="width: 2vw"></a></li>
+                  {% else: %}
                 <li class="nav-item"><a type="button" href="/login" class="header-ref" style="">Войти</a></li>
                 <li class="nav-item"><a type="button" href="/register" class="header-ref" style="">Регистрация</a></li>
+                  {% endif %}
 
               </ul>
             </div>
@@ -61,9 +65,46 @@
     <div style="display: flex; justify-content: flex-start; flex-direction: row; padding: 2%;">
         <a type="button" class="header-ref section-text" style="vertical-align: middle; margin-left: 3%; color: black; opacity: 0.8;">О нас</a>
         <a class="header-ref section-text" href="/catalog" style="margin-left: 3%; color: black; opacity: 0.75;">Бронирование</a>
-        <a type="button" class="header-ref section-text" style="vertical-align: middle; margin-left: 3%; color: black; opacity: 0.75;">Поддержка</a>
+        <button name="adreses" id="adres" class="header-ref section-text" style="vertical-align: middle; margin-left: 3%; color: black; opacity: 0.75;">Адреса продажи молока</button>
     </div>
     <div style="display: flex; justify-content: flex-start; flex-direction: row; padding: 2%;">
         <span class="section-text" style="color: black; opacity: 0.75;">@Сайт создан в рамках участия команды Develop bulder’s в хакатоне. Наша команда желает вам приятного времяпрепровождения.</span>
     </div>
 </footer>
+<div id="Modal" class="modal">
+
+    <div class="modal-content">
+        <span id="close" class="close">&times;</span>
+        <h3 class="headline3">О нас</h3>
+        <p class="section-text">Мы реально крутая и очень (команда) добрая команда и исполнители топового сайта для тебя брат</p>
+    </div>
+
+</div>
+<script rel="script">
+
+var modal = document.getElementById("Modal");
+var btn = document.getElementById("adres");
+var span = document.getElementById("close");
+
+btn.onclick = function() {
+    document.body.classList.add('modal-show');
+    modal.style.display = "block";
+}
+
+
+span.onclick = function() {
+    document.body.classList.remove('modal-show');
+    modal.style.display = "none";
+}
+
+
+
+window.onclick = function(event) {
+  else if (event.target == modal) {
+    document.body.classList.remove('modal-show');
+    modal.style.display = "none";
+  }
+}
+</script>
+</body>
+</html>
