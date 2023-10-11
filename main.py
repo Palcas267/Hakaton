@@ -2,7 +2,21 @@ from flask import render_template, Flask, request, redirect, flash
 #from flask_login import LoginManager, login_user, logout_user, current_user, login_required
 from werkzeug.security import check_password_hash, generate_password_hash
 from base import *
+from flask import session
 from flask_sqlalchemy import SQLAlchemy
+from config import adminpass
+import os
+
+
+"""def check_user():
+    if not session.get('admin_version'):
+        if current_user.is_authenticated:
+            for admin_id in admins_id:
+                if current_user.id == admin_id:
+                    session['admin_version'] = True
+        else:
+            session['admin_version'] = False
+    return session['admin_version']"""
 
 
 """@login_manager.user_loader
@@ -73,6 +87,7 @@ def login():
 
 @app.route('/basket')
 def basket():
+
     return render_template('basket.html')
 
 
@@ -84,6 +99,55 @@ def contacts():
 @app.route('/events')
 def events():
     return render_template('events.html')
+
+
+@app.route('/admin', methods=['POST', 'GET'])
+def admin():
+    if not session.get('admin_version'):
+        session['admin_version'] = False
+    if request.method == "POST":
+        passw = request.form['password']
+        if passw == adminpass:
+            session['admin_version'] = True
+            return render_template('admin.html')
+        return redirect('/')
+    else:
+        if session.get('admin_version'):
+            return render_template('admin.html')
+        return render_template('password.html')
+
+
+@app.route('/create', methods=['POST', 'GET'])
+def create():
+    if request.method == "POST" and session.get('admin_version'):
+        title = request.form['title']
+        price = request.form['price']
+        description = request.form['description']
+        img = request.files['img']
+        if img.filename != '':
+            last_obj = Items.query.order_by(Items.id.desc()).first()
+            if last_obj:
+                last_id = last_obj.id
+                next_id = last_id + 1
+            else:
+                next_id = 1
+            img_new_filename = f'{img.filename.split(".")[0]}_{next_id}.{img.filename.split(".")[1]}'
+            img.save(os.path.join(app.config['UPLOAD_FOLDER'], f'{img_new_filename}'))
+            img_track = f'/static/images/{img_new_filename}'
+            item = Items(name=title, cost=price, img=img_track)
+            try:
+                db.session.add(item)
+                db.session.commit()
+                return redirect('/')
+                # Добать шаблоn с крупной надписью "Товар добавлен в каталог!" и кнопкой "На главную"
+            except:
+                return "Ошибака"
+        else:
+            message = 'Некоректное имя файла'
+            return render_template('create.html', message=message)
+    else:
+        return render_template('create.html')
+
 
 
 if __name__ == '__main__':

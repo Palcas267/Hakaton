@@ -7,6 +7,9 @@ app = Flask(__name__)
 app.config['SQLALCHEMY_DATABASE_URI'] = 'sqlite:///main.db'
 db = SQLAlchemy(app)
 app.config['PERMANENT_SESSION_LIFETIME'] = datetime.timedelta(days=365)
+app.config['SECRET_KEY'] = 'error123'
+
+adminpass = 'error123'
 
 #login_manager = LoginManager(app)
 #login_manager.login_view = 'authorization'

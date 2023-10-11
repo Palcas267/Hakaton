@@ -29,6 +29,7 @@ class Items(db.Model):
     id = db.Column(db.Integer, primary_key=True)
     name = db.Column(db.String, nullable=False)
     cost = db.Column(db.Integer, nullable=False)
+    img = db.Column(db.Text, nullable=False)
 
     def __init__(self, name, cost):
         self.name = name

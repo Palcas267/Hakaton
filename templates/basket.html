@@ -19,7 +19,36 @@
           {% endfor %}
         </div>
     </div>
+    <script>
 
+        document.getElementById('count_{{ i.id }}').addEventListener('input', () => {
+            if (document.getElementById('count_{{ i.id }}').value === '') {
+                document.getElementById('count_{{ i.id }}').value = 1
+                button_undisabled{{ i.id }}()
+            }
+         });
+
+        function buttonClickMinus{{ i.id }}(elem) {
+            if (document.getElementById('count_{{ i.id }}').value < 2) {
+                window.location.href = '/delete/{{ i.id }}';
+            }
+            else {
+                document.getElementById('count_{{ i.id }}').value -= 1
+            }
+        }
+        function buttonClickPlus{{ i.id }}(elem){
+            document.getElementById('count_{{ i.id }}').value++
+        }
+        function button_undisabled{{ i.id }}(){
+            if (document.getElementById('count_{{ i.id }}').value.length > 0) {
+                document.getElementById('sub_count{{ i.id }}').disabled = false;
+                }
+            else {
+                document.getElementById('sub_count{{ i.id }}').disabled = true;
+                }
+           }
+
+    </script>
 
 {% endblock %}
 {% block title %}

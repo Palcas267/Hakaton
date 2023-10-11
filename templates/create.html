@@ -1,0 +1,12 @@
+{% extends 'base.html' %}
+{% block body %}
+<form method="post" enctype="multipart/form-data">
+    <input type="text" class="form-control" name="title" id="title" placeholder="Введите название (до 100 символов)" required><br>
+    <input type="number" class="form-control" name="price" id="price" placeholder="Введите цену" required><br>
+    <input class="form-control" type="file" name="img" id="img" placeholder="Загрузите сюда фото" required><br>
+    <textarea class="form-control" placeholder="Описание" name="description" id="description" data-required="1" style="overflow: hidden; overflow-wrap: break-word; height: 92px;"></textarea>
+</form>
+{% endblock %}
+{% block title %}
+Добавить товар
+{% endblock %}
