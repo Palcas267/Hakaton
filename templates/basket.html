@@ -1,51 +1,83 @@
 {% extends 'base.html' %}
 {% block body %}
-    <div style="display: flex; flex-direction: row;">
+    <div style="display: flex; flex-direction: row; padding-top: 5%">
         <div id="main-catalog" style="background: linear-gradient(to bottom right, #7C7C7C, #383D3B);">
-          {% for i in data %}
+          {% for i in items %}
             <div class="item" style="background-color: #88AB75; align-self: flex-start;">
-                    <a href="" style="display: block; text-decoration: none;">
-                        <div style="margin-bottom: 0.4em; ">
-                            <div style="border: 0.7vw solid #88AB75; height: 282px; width: 384px; background: url('{{ i.img }}'); background-position: center center; background-size: cover; display: flex; justify-content: center; flex-direction: column; align-items: flex-end;">
-                                <span class="price">{{ i.cost }} руб</span>
-                            </div>
-                            <div class="item-inf" style="padding-left: 2%;">
-                                <div style="text-align: center;">{{ i.name }}</div>
-                            </div>
+                <a href="" style="display: block; text-decoration: none;">
+                    <div style="margin-bottom: 0.4em; ">
+                        <div style="border: 0.7vw solid #88AB75; height: 282px; width: 384px; background: url('{{ i.img }}'); background-position: center center; background-size: cover; display: flex; justify-content: center; flex-direction: column; align-items: flex-end;">
+                            <span class="price">{{ i.cost }} руб</span>
                         </div>
-                    </a>
-                    <a href="/" type="button" class="btn orange-circle-btn" style="font-size: 1.4vw !important; margin: 0.5vw">В корзину</a>
-                </div>
-            <script>
+                        <div class="item-inf" style="padding-left: 2%;">
+                            <div style="text-align: center;">{{ i.name }}</div>
+                        </div>
+                    </div>
+                </a>
+                <!--<form method="post">
+                    <input class="form-control" id="items_{{ i.id }}" name="items_{{ i.id }}" style="width: 1vw">
+                    <button type="submit" class="btn btn-success">Изменить</button>
+                </form>-->
+                <a href="/delete_cart/items/{{ i.id }}" type="button" class="btn orange-circle-btn" style="font-size: 1.4vw !important; margin: 0.5vw">Убрать из корзины</a>
+            </div>
+          {% endfor %}
+            {% for r in route %}
+            <div class="item" style="background-color: #88AB75; align-self: flex-start;">
+                <a href="" style="display: block; text-decoration: none;">
+                    <div style="margin-bottom: 0.4em; ">
+                        <div style="border: 0.7vw solid #88AB75; height: 282px; width: 384px; background: url('{{ r.img }}'); background-position: center center; background-size: cover; display: flex; justify-content: center; flex-direction: column; align-items: flex-end;">
+                            <span class="price">{{ r.cost }} руб</span>
+                        </div>
+                        <div class="item-inf" style="padding-left: 2%;">
+                            <div style="text-align: center;">{{ r.name }}</div>
+                        </div>
+                    </div>
+                </a>
+                <!--<form method="post">
+                    <input class="form-control" id="route_{{ r.id }}" name="route_{{ r.id }}" style="width: 1vw">
+                    <button type="submit" class="btn btn-success">Изменить</button>
+                </form>-->
+                <a href="/delete_cart/route/{{ r.id }}" type="button" class="btn orange-circle-btn" style="font-size: 1.4vw !important; margin: 0.5vw">Убрать из корзины</a>
+            </div>
+          {% endfor %}
+            {% for l in locations %}
+            <div class="item" style="background-color: #88AB75; align-self: flex-start;">
+                <a href="" style="display: block; text-decoration: none;">
+                    <div style="margin-bottom: 0.4em; ">
+                        <div style="border: 0.7vw solid #88AB75; height: 282px; width: 384px; background: url('{{ l.img }}'); background-position: center center; background-size: cover; display: flex; justify-content: center; flex-direction: column; align-items: flex-end;">
+                            <span class="price">{{ l.cost }} руб</span>
 
-                document.getElementById('count_{{ i.id }}').addEventListener('input', () => {
-                    if (document.getElementById('count_{{ i.id }}').value === '') {
-                        document.getElementById('count_{{ i.id }}').value = 1
-                        button_undisabled{{ i.id }}()
-                    }
-                 });
-
-                function buttonClickMinus{{ i.id }}(elem) {
-                    if (document.getElementById('count_{{ i.id }}').value < 2) {
-                        window.location.href = '/delete/{{ i.id }}';
-                    }
-                    else {
-                        document.getElementById('count_{{ i.id }}').value -= 1
-                    }
-                }
-                function buttonClickPlus{{ i.id }}(elem){
-                    document.getElementById('count_{{ i.id }}').value++
-                }
-                function button_undisabled{{ i.id }}(){
-                    if (document.getElementById('count_{{ i.id }}').value.length > 0) {
-                        document.getElementById('sub_count{{ i.id }}').disabled = false;
-                        }
-                    else {
-                        document.getElementById('sub_count{{ i.id }}').disabled = true;
-                        }
-                   }
-
-            </script>
+                        </div>
+                        <div class="item-inf" style="padding-left: 2%;">
+                            <div style="text-align: center;">{{ l.name }}</div>
+                        </div>
+                    </div>
+                </a>
+                <!--<form method="post">
+                    <input class="form-control" id="locations_{{ l.id }}" name="locations_{{ l.id }}" style="width: 1vw">
+                    <button type="submit" class="btn btn-success">Изменить</button>
+                </form>-->
+                <a href="/delete_cart/locations/{{ l.id }}" type="button" class="btn orange-circle-btn" style="font-size: 1.4vw !important; margin: 0.5vw">Убрать из корзины</a>
+            </div>
+          {% endfor %}
+            {% for r in rental %}
+            <div class="item" style="background-color: #88AB75; align-self: flex-start;">
+                <a href="" style="display: block; text-decoration: none;">
+                    <div style="margin-bottom: 0.4em; ">
+                        <div style="border: 0.7vw solid #88AB75; height: 282px; width: 384px; background: url('{{ r.img }}'); background-position: center center; background-size: cover; display: flex; justify-content: center; flex-direction: column; align-items: flex-end;">
+                            <span class="price">{{ r.cost }} руб</span>
+                        </div>
+                        <div class="item-inf" style="padding-left: 2%;">
+                            <div style="text-align: center;">{{ r.name }}</div>
+                        </div>
+                    </div>
+                </a>
+                <!--<form method="post">
+                    <input class="form-control" id="rental_{{ r.id }}" name="rental_{{ r.id }}" style="width: 1vw">
+                    <button type="submit" class="btn btn-success">Изменить</button>
+                </form>-->
+                <a href="/delete_cart/rental/{{ r.id }}" type="button" class="btn orange-circle-btn" style="font-size: 1.4vw !important; margin: 0.5vw">Убрать из корзины</a>
+            </div>
           {% endfor %}
         </div>
     </div>

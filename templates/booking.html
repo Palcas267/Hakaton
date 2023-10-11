@@ -23,11 +23,11 @@
                             </div>
                             <div class="item-inf" style="padding-left: 2%;">
                                 <div style="text-align: center;">{{ i.name }}</div>
-                                <div style="word-break: break-all; padding: 2%">{{ i.descript }}...</div>
+                                <div style="word-break: break-all; padding: 2%">{{ (i.descript)[0:60] }}...</div>
                             </div>
                         </div>
                     </a>
-                    <a href="/" type="button" class="btn orange-circle-btn" style="font-size: 1.4vw !important; margin: 0.5vw">В корзину</a>
+                    <a href="/basket/{{ mode }}/{{ i.id }}" type="button" class="btn orange-circle-btn" style="font-size: 1.4vw !important; margin: 0.5vw">В корзину</a>
                 </div>
             {% endfor %}
         </div>

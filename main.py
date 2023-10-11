@@ -6,7 +6,7 @@ from flask import session
 from flask_sqlalchemy import SQLAlchemy
 from config import adminpass, login_manager
 import os
-
+import datetime
 
 def str_to_int_keys(dict_in):
     cash_ = {}
@@ -75,6 +75,12 @@ def show(type, id):
             item.active = False
         else:
             item.active = True
+    if type == 'events':
+        item = Events.query.get(id)
+        if item.active:
+            item.active = False
+        else:
+            item.active = True
     db.session.commit()
     return redirect(f'/redactor/{type}')
 
@@ -103,6 +109,9 @@ def redactor(mode):
         items = Route.query.all()
     elif mode == 'locations':
         items = Locate.query.all()
+    elif mode == 'events':
+        items = Events.query.all()
+
     else:
         items = Items.query.all()
     return render_template('redactor.html', data=items, mode=mode)
@@ -112,21 +121,22 @@ def redactor(mode):
 def booking():
     if not session.get('sort'):
         session['sort'] = 'rental'
-    if session.get('sort') == 'rental':
+    mode = session.get('sort')
+    if mode == 'rental':
         items = Rental.query.filter_by(active=True)
-    elif session.get('sort') == 'route':
+    elif mode == 'route':
         items = Route.query.filter_by(active=True)
-    elif session.get('sort') == 'locations':
+    elif mode == 'locations':
         items = Locate.query.filter_by(active=True)
     else:
         items = Route.query.filter_by(active=True)
-    return render_template('booking.html', data=items)
+    return render_template('booking.html', data=items, mode=mode)
 
 
 @app.route('/register', methods=['POST', 'GET'])
 def register():
     if request.method == 'POST':
-        nickname = request.form['nickname']
+        nickname = request.form['username']
         email = request.form['email']
         name = request.form['name']
         last_name = request.form['last_name']
@@ -164,50 +174,55 @@ def login():
         return redirect('/login')
 
 
-@app.route('/basket')
+@app.route('/basket', methods=['GET', 'POST'])
 def basket():
-    """if request.method == 'POST':
-        for item_id in session['cart'].keys():
-            try:
-                print(f'count_{item_id}')
-                new_count = request.form[f'count_{item_id}']
-                session['cart'][item_id] = new_count
-                session.modified = True
-                break
-            except:
-                pass
-        return redirect('/basket')
+    if request.method == 'POST':
+        pass
     else:
-        items_in_cart = []
-        if not session.get('cart'):
-            session['cart'] = {}
+        items = []
+        rental = []
+        route = []
+        locations = []
 
-        for item_id in session.get('cart').keys():
-            id = int(item_id.split()[0])
-            type = item_id.split()[1]
-            if type == 'items':
-                items_in_cart += [Items.query.get(id)]
-            elif type == 'rental':
-                items_in_cart += [Rental.query.get(id)]
-            elif type == 'route':
-                items_in_cart += [Route.query.get(id)]
-            elif type == 'locations':
-                items_in_cart += [Locate.query.get(id)]
-        cart_with_int_keys = str_to_int_keys(session.get('cart'))
+        if not session.get('items'):
+            session['items'] = {}
+        if not session.get('rental'):
+            session['rental'] = {}
+        if not session.get('route'):
+            session['route'] = {}
+        if not session.get('locations'):
+            session['locations'] = {}
 
-        sum_of_items_price = 0
-        for item in items_in_cart:
-            sum_of_items = item.price * int(cart_with_int_keys.get(item.id))
-            sum_of_items_price += int(sum_of_items)
+        for i in session['items'].keys():
+            items += {Items.query.get(i): session['items'].get(i)}
 
-        if items_in_cart:
+        for i in session['rental'].keys():
+            rental += {Rental.query.get(i): session['rental'].get(i)}
+
+        for i in session['route'].keys():
+            route += {Route.query.get(i): session['route'].get(i)}
+
+        for i in session['locations'].keys():
+            locations += {Locate.query.get(i): session['locations'].get(i)}
+
+        if items or rental or route or locations:
             payment_button = True
         else:
-            payment_button = False"""
+            payment_button = False
 
-    return render_template('basket.html')
-    """data=items_in_cart, payment_button=payment_button,
-                           dict=cart_with_int_keys, sum_of_items=sum_of_items_price"""
+        return render_template('basket.html', items=items, rental=rental, route=route, locations=locations,
+                               payment_button=payment_button)
+
+
+@app.route('/delete_cart/<type>/<item_id>')
+def delete_form_cart(item_id, type):
+    a = session.get(type)
+    print(a)
+    print(a[item_id])
+    a = session.get(type)
+    del a[item_id]
+    session.modified = True
+    return f'<script>document.location.href = document.referrer</script>'
 
 
 @app.route('/contacts')
@@ -217,7 +232,8 @@ def contacts():
 
 @app.route('/events')
 def events():
-    return render_template('events.html')
+    events = Events.query.filter_by(active=True)
+    return render_template('events.html', events=events)
 
 
 @app.route('/admin', methods=['POST', 'GET'])
@@ -257,7 +273,7 @@ def delete(type, id):
 def create(mode):
     check_user()
     if session['admin_version']:
-        if request.method == "POST" and session.get('admin_version'):
+        if request.method == "POST":
             title = request.form['title']
             price = request.form['price']
             img = request.files['img']
@@ -265,6 +281,14 @@ def create(mode):
                 descript = request.form['descript']
             if mode == 'route':
                 locations = request.form['locations']
+            if mode == 'events':
+                date = request.form['date']
+                time = request.form['time']
+                time = time.split(':')
+                date = date.split('-')
+                datetimee = datetime.datetime.combine(datetime.date(int(date[0]), int(date[1]), int(date[2])),
+                                                      datetime.time(int(time[0]), int(time[1])))
+                print(datetimee)
             else:
                 locations = 0
             if img.filename != '':
@@ -283,8 +307,8 @@ def create(mode):
                 else:
                     next_id = 1
                 img_new_filename = f'{img.filename.split(".")[0]}_{next_id}.{img.filename.split(".")[1]}'
-                img.save(os.path.join(app.config['UPLOAD_FOLDER'], f'{img_new_filename}'))
-                img_track = f'/static/images/{img_new_filename}'
+                img.save(os.path.join(app.config['UPLOAD_FOLDER'], f'{mode}/{img_new_filename}'))
+                img_track = f'/static/images/{mode}/{img_new_filename}'
 
                 if mode == 'items':
                     item = Items(name=title, cost=price, img=img_track)
@@ -292,16 +316,17 @@ def create(mode):
                     item = Locate(name=title, cost=price, img=img_track, descript=descript, active=True)
                 elif mode == 'route':
                     item = Route(name=title, cost=price, img=img_track, descript=descript, names=locations, active=True)
+                elif mode == 'events':
+                    item = Events(name=title, cost=price, img=img_track, descript=descript, active=True, time=datetimee)
                 else:
                     item = Rental(name=title, cost=price, img=img_track, descript=descript, active=True)
 
-                try:
-                    db.session.add(item)
-                    db.session.commit()
-                    return redirect('/')
+
+                db.session.add(item)
+                db.session.commit()
+                return redirect('/')
                     # Добать шаблоn с крупной надписью "Товар добавлен в каталог!" и кнопкой "На главную"
-                except:
-                    return "Ошибака"
+
             else:
                 message = 'Некоректное имя файла'
                 return render_template(f'create_{mode}.html', message=message)
@@ -311,15 +336,28 @@ def create(mode):
         return redirect('/admin')
 
 
-@app.route('/basket/<type>/<int:id>')
+@app.route('/basket/<type>/<id>')
 def basket_add(type, id):
-    if not session.get('cart'):
-        session['cart'] = {}
-    new_item = {'type': type, 'count': 0}
-    session['cart'].setdefault(id, {'type': type, 'count': 0})
-    session['cart'][id]['count'] += 1
+    if not session.get('items'):
+        session['items'] = {}
+    if not session.get('rental'):
+        session['items'] = {}
+    if not session.get('route'):
+        session['items'] = {}
+    if not session.get('locations'):
+        session['items'] = {}
+
+    session[type].setdefault(id, 0)
+    print(session[type])
+    session.get(type)[id] += 1
     session.modified = True
     return f'<script>document.location.href = document.referrer</script>'
+
+
+@app.route('/delete')
+def clear_():
+    session.clear()
+    return redirect('/')
 
 
 if __name__ == '__main__':

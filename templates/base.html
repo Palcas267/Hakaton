@@ -15,9 +15,9 @@
                 <li class="nav-item"><a href="/" type="button" class="header-ref" aria-current="page" style="vertical-align: middle; font-weight: 600;">Главная</a></li>
                 <li class="nav-item"><a href="/booking" type="button" class="header-ref" style="vertical-align: middle; font-weight: 600;">Бронирование</a></li>
                 <li class="nav-item"><a href="/catalog" class="header-ref" style="vertical-align: middle; font-weight: 600;">Продукция</a></li>
-                <li class="nav-item"><a href="/" class="header-ref" style="vertical-align: middle; font-weight: 600;">О нас</a></li>
+                <li class="nav-item"><a href="/about" class="header-ref" style="vertical-align: middle; font-weight: 600;">О нас</a></li>
                 <li class="nav-item"><a href="/contacts" class="header-ref" style="vertical-align: middle; font-weight: 600;">Контакты</a></li>
-                <li class="nav-item"><a href="/" class="header-ref" style="vertical-align: middle; font-weight: 600;">Мероприятия</a></li>
+                <li class="nav-item"><a href="/events" class="header-ref" style="vertical-align: middle; font-weight: 600;">Мероприятия</a></li>
               </ul>
               <ul class="nav">
                 <li class="nav-item"><a href="/basket"  class="header-ref" style="vertical-align: middle; font-weight: 600;">Корзина</a></li>
@@ -28,6 +28,18 @@
             </div>
         </nav>
     </header>
+    </div>
+
+        {% with messages = get_flashed_messages() %}
+           {% if messages %}
+            <div class="alert alert-success" role="alert" style="padding-top: 5%">
+              {% for message in messages %}
+                <label class="section-text" style="">{{ message }}</label>
+              {% endfor %}
+            </div>
+           {% endif %}
+        {% endwith %}
+
   <div>
       {% block body %}{% endblock %}
   </div>

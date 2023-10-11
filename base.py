@@ -2,7 +2,7 @@ from flask import redirect, request, Flask
 from flask_login import UserMixin
 from flask_sqlalchemy import SQLAlchemy
 from config import db, app
-
+import datetime
 
 class Users(db.Model, UserMixin):
     id = db.Column(db.Integer, primary_key=True)
@@ -99,6 +99,27 @@ class Rental(db.Model):
 
     def __str__(self):
         return "ID: {}, Название: {}, Цена: {}, Тип аренды: {}".format(self.id, self.name, self.cost, self.type)
+
+
+class Events(db.Model):
+    id = db.Column(db.Integer, primary_key=True)
+    name = db.Column(db.String, nullable=False)
+    cost = db.Column(db.Integer, nullable=False)
+    img = db.Column(db.Text, default='/static/images/i.webp')
+    descript = db.Column(db.Text, nullable=False)
+    active = db.Column(db.Boolean, default=True)
+    time = db.Column(db.DateTime, default=datetime.datetime.today().replace(second=0, microsecond=0))
+
+    def __init__(self, name, cost, img, descript, active, time):
+        self.name = name
+        self.cost = cost
+        self.img = img
+        self.descript = descript
+        self.active = active
+        self.time = time
+
+    def __str__(self):
+        return "ID: {}, Товар: {}, Цена: {}".format(self.id, self.name, self.cost)
 
 
 def Print(list):
