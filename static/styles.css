@@ -5,6 +5,13 @@ body {overflow-x:hidden;}
 
 body.modal-show { overflow: hidden; }
 
+
+.sort-ref {
+    color: white;
+    text-decoration: none;
+}
+
+
 .orange-circle-btn {
     background-color: #E0A458;
     color: white;

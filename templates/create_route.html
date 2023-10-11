@@ -5,7 +5,9 @@
         <input type="text" class="form-control" name="title" id="title" placeholder="Введите название (до 100 символов)" required><br>
         <input type="number" class="form-control" name="price" id="price" placeholder="Введите цену" required><br>
         <input class="form-control" type="file" name="img" id="img" placeholder="Загрузите сюда фото" required><br>
-        <button class="btn btn-success hover" type="submit" style="margin-top: 1%"> Добавить </button>
+        <textarea class="form-control" placeholder="Описание" name="descript" id="descript" data-required="1" style="overflow: hidden; overflow-wrap: break-word; height: 92px;"></textarea>
+        <textarea class="form-control" placeholder="Места, участвующие в маршруте" name="locations" id="locations" data-required="1" style="overflow: hidden; overflow-wrap: break-word; height: 92px; margin-top: 1vw"></textarea>
+        <button class="btn btn-success hover" type="submit" style="margin-top: 1%">Добавить</button>
     </form>
 </div>
 {% endblock %}

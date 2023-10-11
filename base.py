@@ -10,8 +10,8 @@ class Users(db.Model, ):
     name = db.Column(db.String, nullable=False, default='Пользователь')
     last_name = db.Column(db.String, nullable=False, default='Пользователь')
     mail = db.Column(db.String, nullable=False)
-    admin = db.Column(db.Boolean, nullable=False, default=0)
-    bktrip = db.Column(db.Integer)
+    admin = db.Column(db.Boolean, nullable=False, default=False)
+    bktrip = db.Column(db.Text)
 
     def __init__(self, login, name, last_name, mail, admin, bktrip):
         self.login = login
@@ -30,10 +30,12 @@ class Items(db.Model):
     name = db.Column(db.String, nullable=False)
     cost = db.Column(db.Integer, nullable=False)
     img = db.Column(db.Text, nullable=False)
+    active = db.Column(db.Boolean, default=True)
 
-    def __init__(self, name, cost):
+    def __init__(self, name, cost, img):
         self.name = name
         self.cost = cost
+        self.img = img
 
     def __str__(self):
         return "ID: {}, Товар: {}, Цена: {}".format(self.id, self.name, self.cost)
@@ -43,10 +45,16 @@ class Locate(db.Model):
     id = db.Column(db.Integer, primary_key=True)
     name = db.Column(db.String, nullable=False)
     cost = db.Column(db.Integer, nullable=False)
+    img = db.Column(db.Text, nullable=False)
+    active = db.Column(db.Boolean, default=True)
+    descript = db.Column(db.Text, nullable=False)
 
-    def __init__(self, name, cost):
+    def __init__(self, name, cost, img, active, descript):
         self.name = name
         self.cost = cost
+        self.img = img
+        self.active = active
+        self.descript = descript
 
     def __str__(self):
         return "ID: {}, Товар: {}, Цена: {}".format(self.id, self.name, self.cost)
@@ -57,11 +65,17 @@ class Route(db.Model):
     names = db.Column(db.String, nullable=False)
     name = db.Column(db.String, nullable=False)
     cost = db.Column(db.Integer, nullable=False)
+    img = db.Column(db.Text, nullable=False)
+    descript = db.Column(db.Text, nullable=False)
+    active = db.Column(db.Boolean, default=True)
 
-    def __init__(self, names, name, cost):
+    def __init__(self, names, name, cost, img, descript, active):
         self.names = names
         self.name = name
         self.cost = cost
+        self.img = img
+        self.descript = descript
+        self.active = active
 
     def __str__(self):
         return "ID: {}, Места: {}, Название маршрута: {}, Цена: {}".format(self.id, self.names, self.name, self.cost)
@@ -71,12 +85,14 @@ class Rental(db.Model):
     id = db.Column(db.Integer, primary_key=True)
     name = db.Column(db.String, nullable=False)
     cost = db.Column(db.Integer, nullable=False)
-    type = db.Column(db.String, nullable=False)
+    img = db.Column(db.Text, nullable=False)
+    active = db.Column(db.Boolean, default=True)
 
-    def __init__(self, name, cost, type):
+    def __init__(self, name, cost, active, img):
         self.name = name
         self.cost = cost
-        self.type = type
+        self.active = active
+        self.img = img
 
     def __str__(self):
         return "ID: {}, Название: {}, Цена: {}, Тип аренды: {}".format(self.id, self.name, self.cost, self.type)
