@@ -9,6 +9,11 @@ db = SQLAlchemy(app)
 app.config['PERMANENT_SESSION_LIFETIME'] = datetime.timedelta(days=365)
 app.config['SECRET_KEY'] = 'error123'
 app.config['UPLOAD_FOLDER'] = 'static/images/'
+app.config['MAIL_PORT'] = 465
+app.config['MAIL_USE_TLS'] = False
+app.config['MAIL_USE_SSL'] = True
+app.config['MAIL_USERNAME'] = 'dbilders@mail.ru'
+app.config['MAIL_PASSWORD'] = 'uhgCR7sSEHmeepN7dZRJ'
 
 adminpass = 'error123'
 

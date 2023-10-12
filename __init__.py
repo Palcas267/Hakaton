@@ -1,10 +1,10 @@
 from flask import render_template, Flask, request, redirect, flash
 from flask_login import LoginManager, login_user, logout_user, current_user, login_required
 from werkzeug.security import check_password_hash, generate_password_hash
-from base import *
+from .base import *
 from flask import session
 from flask_sqlalchemy import SQLAlchemy
-from config import adminpass, login_manager
+from .config import adminpass, login_manager
 import os
 import datetime
 
@@ -42,6 +42,18 @@ def logout():
     return redirect('/register')
 
 
+@app.route('/item/<mode>/<int:id>')
+def item(mode, id):
+    if mode == 'locations':
+        item = Locate.query.get(id)
+    if mode == 'route':
+        item = Route.query.get(id)
+    if mode == 'rental':
+        item = Rental.query.get(id)
+    else:
+        item = Events.query.get(id)
+    return render_template('item.html', item=item)
+
 @app.route('/switch_sort/<type>')
 def switch_sort(type):
     if not session.get('sort'):
@@ -70,7 +82,7 @@ def show(type, id):
             item.active = False
         else:
             item.active = True
-    if type == 'locations':
+    if type == 'locate':
         item = Locate.query.get(id)
         if item.active:
             item.active = False
@@ -96,7 +108,7 @@ def index():
     locate = Locate.query.first()
     rental = Rental.query.first()
     route = Route.query.first()
-    items = [locate, rental, route]
+    items = {'locate': locate, 'rental': rental, 'route': route}
     milk_products = Items.query.all()[0:2]
     events = Events.query.order_by(Events.time)
     return render_template('index.html', data=items, milk=milk_products, events=events)
@@ -115,20 +127,18 @@ def about():
 
 @app.route('/redactor/<mode>')
 def redactor(mode):
-    if session['admin_version']:
-        if mode == 'rental':
-            items = Rental.query.all()
-        elif mode == 'route':
-            items = Route.query.all()
-        elif mode == 'locations':
-            items = Locate.query.all()
-        elif mode == 'events':
-            items = Events.query.all()
+    if mode == 'rental':
+        items = Rental.query.all()
+    elif mode == 'route':
+        items = Route.query.all()
+    elif mode == 'locate':
+        items = Locate.query.all()
+    elif mode == 'events':
+        items = Events.query.all()
 
-        else:
-            items = Items.query.all()
-        return render_template('redactor.html', data=items, mode=mode)
-    return redirect('/admin')
+    else:
+        items = Items.query.all()
+    return render_template('redactor.html', data=items, mode=mode)
 
 
 @app.route('/booking')
@@ -172,25 +182,22 @@ def register():
         return render_template('register.html')
 
 
-@app.route('/login')
+@app.route('/login', methods=['POST', 'GET'])
 def login():
     if request.method == "GET":
         if current_user.is_authenticated:
             flash("Вы уже авторизованы")
             return redirect("/")
         return render_template("login.html")
-    username = request.form.get('username')
-    password = request.form.get('password')
-    user = Users.query.filter_by(login=username).first()
-    if user is None:
-        flash('Такого пользователя не существует')
-        return redirect("/login")
-    if check_password_hash(user.password, password):
+    if request.method == 'POST':
+        email = request.form.get('email')
+        user = Users.query.filter_by(mail=email).first()
+        if user is None:
+            flash('Такого пользователя не существует')
+            return redirect("/login")
         login_user(user)
         return redirect('/')
-    else:
-        flash('Неверный логин или пароль')
-        return redirect('/login')
+
 
 
 @app.route('/basket', methods=['GET', 'POST'])
@@ -201,7 +208,7 @@ def basket():
         items = []
         rental = []
         route = []
-        locations = []
+        locate = []
 
         if not session.get('items'):
             session['items'] = {}
@@ -209,8 +216,8 @@ def basket():
             session['rental'] = {}
         if not session.get('route'):
             session['route'] = {}
-        if not session.get('locations'):
-            session['locations'] = {}
+        if not session.get('locate'):
+            session['locate'] = {}
 
         for i in session['items'].keys():
             items += {Items.query.get(i): session['items'].get(i)}
@@ -221,15 +228,15 @@ def basket():
         for i in session['route'].keys():
             route += {Route.query.get(i): session['route'].get(i)}
 
-        for i in session['locations'].keys():
-            locations += {Locate.query.get(i): session['locations'].get(i)}
+        for i in session['locate'].keys():
+            locate += {Locate.query.get(i): session['locate'].get(i)}
 
-        if items or rental or route or locations:
+        if items or rental or route or locate:
             payment_button = True
         else:
             payment_button = False
 
-        return render_template('basket.html', items=items, rental=rental, route=route, locations=locations,
+        return render_template('basket.html', items=items, rental=rental, route=route, locations=locate,
                                payment_button=payment_button)
 
 
@@ -263,6 +270,8 @@ def admin():
         passw = request.form['password']
         if passw == adminpass:
             session['admin_version'] = True
+            if current_user.is_authenticated:
+                current_user.admin = True
             return render_template('admin.html')
         return redirect('/')
     else:
@@ -280,11 +289,14 @@ def delete(type, id):
             db.session.delete(Rental.query.get(id))
         if type == 'route':
             db.session.delete(Route.query.get(id))
-        if type == 'locations':
+        if type == 'locate':
             db.session.delete(Locate.query.get(id))
+        if type == 'events':
+            db.session.delete(Events.query.get(id))
         db.session.commit()
         return redirect(f'/redactor/{type}')
-    return redirect('/admin')
+    else:
+        return redirect('/admin')
 
 
 @app.route('/create/<mode>', methods=['POST', 'GET'])
@@ -293,8 +305,9 @@ def create(mode):
     if session['admin_version']:
         if request.method == "POST":
             title = request.form['title']
-            price = request.form['price']
             img = request.files['img']
+            if mode != 'events':
+                price = request.form['price']
             if mode != 'items':
                 descript = request.form['descript']
             if mode == 'route':
@@ -325,7 +338,7 @@ def create(mode):
                 else:
                     next_id = 1
                 img_new_filename = f'{img.filename.split(".")[0]}_{next_id}.{img.filename.split(".")[1]}'
-                img.save(os.path.join(app.config['UPLOAD_FOLDER'], f'{mode}/{img_new_filename}'))
+                img.save(os.path.join('/home/d/donsovwv/muvyr/public_html/'+app.config['UPLOAD_FOLDER']+ f'{mode}/{img_new_filename}'))
                 img_track = f'/static/images/{mode}/{img_new_filename}'
 
                 if mode == 'items':
@@ -348,8 +361,10 @@ def create(mode):
             else:
                 message = 'Некоректное имя файла'
                 return render_template(f'create_{mode}.html', message=message)
-        return render_template(f'create_{mode}.html')
-    return redirect('/admin')
+        else:
+            return render_template(f'create_{mode}.html')
+    else:
+        return redirect('/admin')
 
 
 @app.route('/basket/<type>/<id>')
@@ -357,11 +372,11 @@ def basket_add(type, id):
     if not session.get('items'):
         session['items'] = {}
     if not session.get('rental'):
-        session['items'] = {}
+        session['rental'] = {}
     if not session.get('route'):
-        session['items'] = {}
-    if not session.get('locations'):
-        session['items'] = {}
+        session['route'] = {}
+    if not session.get('locate'):
+        session['locate'] = {}
 
     session[type].setdefault(id, 0)
     print(session[type])

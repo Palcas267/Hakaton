@@ -1,9 +1,12 @@
 {% extends 'base.html' %}
 {% block body %}
-    <div class="container" style="display: flex; flex-direction: row; padding-top: 5%;">
-        <div class="section-text" style=""><p class="section-text" style="padding-right: 1%">Телефон</p>8 952 332 02 62 Мария, <br>8 982 457 30 76 Екатерина</div>
-        <a class="section-text" style="color: black;" href="https://vk.com/weekendvmywer">Наше VK</a>
-        <script type="text/javascript" charset="utf-8" async src="https://api-maps.yandex.ru/services/constructor/1.0/js/?um=constructor%3Ac1acb387f7b51ccbf3bbe43d49927f8c279a9b679519519d66a505a5de214e96&amp;width=100%25&amp;height=720&amp;lang=ru_RU&amp;scroll=true"></script>
+    <div class="container" style="display: flex; flex-direction: row; padding-top: 5%; justify-content: space-between;">
+        <div class="col-2" style="display: flex; flex-direction: row">
+            <div class="section-text" style=""><p class="section-text" style="padding-right: 1%">Телефон</p>8 952 332 02 62 Мария, <br>8 982 457 30 76 Екатерина</div>
+            <a class="section-text" style="color: black;" href="https://vk.com/weekendvmywer">Наше VK</a>
+        </div>
+        <div class="col-7"><script type="text/javascript" charset="utf-8" async src="https://api-maps.yandex.ru/services/constructor/1.0/js/?um=constructor%3Ac1acb387f7b51ccbf3bbe43d49927f8c279a9b679519519d66a505a5de214e96&amp;width=90%25&amp;height=640&amp;lang=ru_RU&amp;scroll=true"></script></div>
+        
     </div>
 {% endblock %}
 {% block title %}

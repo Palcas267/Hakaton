@@ -6,9 +6,6 @@ body {overflow-x:hidden;}
 body.modal-show { overflow: hidden; }
 
 
-@media
-
-
 .sort-ref {
     color: white;
     text-decoration: none;
@@ -19,7 +16,7 @@ body.modal-show { overflow: hidden; }
     background-color: #E0A458;
     color: white;
     font-weight: 700;
-    font-size: 2vw;
+    font-size: 1em;
     border-radius: 1.1em;
 }
 
@@ -88,7 +85,7 @@ body.modal-show { overflow: hidden; }
 
 .headline {
     font-weight: 700;
-    font-size: 3vw;
+    font-size: 2vw;
     font-family: 'Inter', sans-serif;
     text-decoration: none;
     color: black;
@@ -162,9 +159,9 @@ a:hover {
 
 
 .item {
+    width: 30%;
     margin-bottom: 0.35em;
     margin-left: 0.75em;
-    width: 384px;
     flex-shrink: 0;
     text-decoration: none;
     font-weight: 700;
@@ -330,6 +327,10 @@ input.search::placeholder {
     background-color: white;
 }
 
+.display-none-adp {
+    
+}
+
 
 .cssSlider {
 	display: block;
@@ -433,3 +434,10 @@ input.search::placeholder {
 		-webkit-transform: translateX(100%);
 		        transform: translateX(100%);
 	}
+	
+@media (max-width: 768px) {
+    .display-none-adp {
+        display: none;
+    }
+    
+}

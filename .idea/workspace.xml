@@ -2,9 +2,49 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="1fb541d0-cc31-44c8-a471-2362a85ff708" name="Changes" comment="5 vrode">
+      <change afterPath="$PROJECT_DIR$/__init__.py" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/static/images/events/lkmst_16.jpg" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/static/images/items/1200x1200nocrop-1_1.jpg" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/static/images/items/1655682492_68-kartinkin-net-p-kartinki-tvoroga-73_5.jpg" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/static/images/items/445ba88011de0b06d33323410c0a1b63_2.jpeg" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/static/images/items/Susu-Minum-Susu-Ment_3.jpg" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/static/images/items/lkmst_1.jpg" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/static/images/items/logo_muvyr_1.jpg" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/static/images/items/myvyrmoloko_4.jpg" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/static/images/items/photo_2023-10-12_02-09-15_1.jpg" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/static/images/items/smetana_2.jpg" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/static/images/locate/lkmst_1.jpg" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/static/images/locate/lkmst_15.jpg" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/static/images/locate/photo_2023-10-12_01-47-08_3.jpg" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/static/images/locate/prichal_2.jpg" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/static/images/rental/Hostel1_1.jpg" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/static/images/rental/hostel2_2.jpg" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/static/images/rental/hostel3_3.jpg" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/static/images/rental/rentelautvel_4.jpg" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/static/images/rental/rentelb_10.jpg" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/static/images/rental/rentelbd_7.jpg" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/static/images/rental/rentelbp_12.jpg" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/static/images/rental/rentelbv_6.jpg" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/static/images/rental/renteli_13.jpg" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/static/images/rental/rentell_9.jpg" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/static/images/rental/rentelr_11.jpg" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/static/images/rental/rentelsb_8.jpg" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/static/images/rental/rentelsl_14.jpg" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/static/images/rental/zipline_5.jpg" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/static/images/route/lkmst_1.jpg" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/templates/item.html" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/base.py" beforeDir="false" afterPath="$PROJECT_DIR$/base.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/config.py" beforeDir="false" afterPath="$PROJECT_DIR$/config.py" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/main.py" beforeDir="false" afterPath="$PROJECT_DIR$/main.py" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/static/styles.css" beforeDir="false" afterPath="$PROJECT_DIR$/static/styles.css" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/templates/about.html" beforeDir="false" afterPath="$PROJECT_DIR$/templates/about.html" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/templates/base.html" beforeDir="false" afterPath="$PROJECT_DIR$/templates/base.html" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/templates/booking.html" beforeDir="false" afterPath="$PROJECT_DIR$/templates/booking.html" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/templates/catalog.html" beforeDir="false" afterPath="$PROJECT_DIR$/templates/catalog.html" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/templates/contacts.html" beforeDir="false" afterPath="$PROJECT_DIR$/templates/contacts.html" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/templates/events.html" beforeDir="false" afterPath="$PROJECT_DIR$/templates/events.html" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/templates/index.html" beforeDir="false" afterPath="$PROJECT_DIR$/templates/index.html" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -29,15 +69,15 @@
     <option name="hideEmptyMiddlePackages" value="true" />
     <option name="showLibraryContents" value="true" />
   </component>
-  <component name="PropertiesComponent">{
-  &quot;keyToString&quot;: {
-    &quot;DefaultHtmlFileTemplate&quot;: &quot;HTML File&quot;,
-    &quot;RunOnceActivity.OpenProjectViewOnStart&quot;: &quot;true&quot;,
-    &quot;RunOnceActivity.ShowReadmeOnStart&quot;: &quot;true&quot;,
-    &quot;last_opened_file_path&quot;: &quot;C:/Users/1/Documents/GitHub/Hakaton/static/images&quot;,
-    &quot;settings.editor.selected.configurable&quot;: &quot;com.jetbrains.python.configuration.PyActiveSdkModuleConfigurable&quot;
+  <component name="PropertiesComponent"><![CDATA[{
+  "keyToString": {
+    "DefaultHtmlFileTemplate": "HTML File",
+    "RunOnceActivity.OpenProjectViewOnStart": "true",
+    "RunOnceActivity.ShowReadmeOnStart": "true",
+    "last_opened_file_path": "C:/Users/1/Documents/GitHub/Hakaton",
+    "settings.editor.selected.configurable": "com.jetbrains.python.configuration.PyActiveSdkModuleConfigurable"
   }
-}</component>
+}]]></component>
   <component name="RecentsManager">
     <key name="CopyFile.RECENT_KEYS">
       <recent name="C:\Users\1\Documents\GitHub\Hakaton\static\images" />
@@ -107,7 +147,14 @@
       <option name="project" value="LOCAL" />
       <updated>1697068736815</updated>
     </task>
-    <option name="localTasksCounter" value="8" />
+    <task id="LOCAL-00008" summary="5 vrode">
+      <created>1697091788005</created>
+      <option name="number" value="00008" />
+      <option name="presentableId" value="LOCAL-00008" />
+      <option name="project" value="LOCAL" />
+      <updated>1697091788005</updated>
+    </task>
+    <option name="localTasksCounter" value="9" />
     <servers />
   </component>
   <component name="Vcs.Log.Tabs.Properties">

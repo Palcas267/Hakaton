@@ -1,7 +1,7 @@
 from flask import redirect, request, Flask
 from flask_login import UserMixin
 from flask_sqlalchemy import SQLAlchemy
-from config import db, app
+from .config import db, app
 import datetime
 
 class Users(db.Model, UserMixin):

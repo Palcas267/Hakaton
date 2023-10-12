@@ -1,0 +1,14 @@
+{% extends 'base.html' %}
+{% block body %}
+    <div class="container py-3" style="display: flex; flex-direction: column;">
+        <label class="headline3" style="align-self: center; color: black; padding-top: 5%">{{ item.name }}</label>
+        {% if item.cost %}
+        <label class="headline3" style="align-self: flex-start; color: black">Стоимость: {{ item.cost }} руб.</label>
+        {% elif item.descript %}
+        <p class="section-text">Описание<br>{{ item.descript }}</p>
+        {% endif %}
+    </div>
+{% endblock %}
+{% block title %}
+{{ item.name }}
+{% endblock %}

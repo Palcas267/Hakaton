@@ -3,7 +3,7 @@
 
 <div class="bg_dark" style="display: flex;  flex-direction: row;  justify-content: center; align-items: center; background-repeat: no-repeat; width: 100%; height: 750px;">
     <div class="headline" style="margin-bottom: 1em; text-align: center;">
-        <p style="line-height: 1.8em; font-weight: 700; font-size: 3.5vw; opacity: 0.85">Что такое <b>Мувыр</b>?<br></p>
+        <p style="line-height: 1.8em; font-weight: 700; opacity: 0.85">Что такое <b>Мувыр</b>?<br></p>
         <a type="button" href="/about" class="btn orange-circle-btn" style="margin-top: 10%; padding: 0.4em; padding-right: 0.5em; padding-left: 0.5em; ">Подробнее ➜</a>
     </div>
 </div>
@@ -27,53 +27,63 @@
 </div>
 <div style="margin-top: 3%; padding: 3%; display: flex; flex-direction: row; justify-content: space-between">
 	<p class="section-text" style="align-self: center; width: 50%; line-height: 1.75; padding: 3%;">Мувыр не просто деревня где-то в Удмуртии. Мувыр - это общество единомышленников, вдохновленных идеей и целеустремленностью Александра Генадьевича - главного инициатора востановления деревни фактически из руин.</p>
-	<div>
+	<div class="display-none-adp">
 		<img src="/static/images/melnica.jpg" style="border-radius: 3%; width: 80%; padding: 1%">
 	</div>
 </div>
-<div style="display: flex; flex-direction: column; align-items: center">
+<div style="display: flex; flex-direction: column; align-items: center; margin-top: 2%">
 	<a href="/booking" class="headline3" style="color: black">Наши предложения</a>
-	<div style="display: flex; flex-direction: row; justify-content: space-around">
-	{% for i in data %}
-
-	{% if i != None %}
-	<div class="item" style="background-color: #88AB75; align-self: flex-start;">
-		<a href="" style="display: block; text-decoration: none;">
-			<div style="margin-bottom: 0.4em; ">
-				<div style="border: 0.7vw solid #88AB75; height: 282px; width: 384px; background: url('{{ i.img }}'); background-position: center center; background-size: cover; display: flex; justify-content: center; flex-direction: column; align-items: flex-end;">
-					<span class="price">{{ i.cost }} руб</span>
-				</div>
-				<div class="item-inf" style="padding-left: 2%;">
-					<div style="text-align: center;">{{ i.name }}</div>
-					<div style="word-break: break-all; padding: 2%">{{ (i.descript)[0:60] }}...</div>
-				</div>
-			</div>
-		</a>
-		<a href="/basket/{{ mode }}/{{ i.id }}" type="button" class="btn orange-circle-btn" style="font-size: 1.4vw !important; margin: 0.5vw">В корзину</a>
-	</div>
+	<div style="display: flex; flex-direction: column; justify-content: space-around">
+	    <div style="display: flex; flex-direction: row; justify-content: space-around">
+    	{% for i in data.values() %}
+    
+    	{% if i %}
+    	<div class="item" style="background-color: #9A8C98; align-self: flex-start;">
+    		<a href="/item/" style="display: block; text-decoration: none;">
+		    {% for e in data.keys() %}
+    		{% if data.get(e) == i %}
+    		<a href="/item/{{ e }}/{{ i.id }}" style="display: block; text-decoration: none;">
+	        {% endif %}
+            {% endfor %}
+    			<div style="margin-bottom: 0.4em; ">
+    				<div style="border: 0.7vw solid #9A8C98; height: 282px; width: 384px; background: url('{{ i.img }}'); background-position: center center; background-size: cover; display: flex; justify-content: center; flex-direction: column; align-items: flex-end;">
+    					<span class="price">{{ i.cost }} руб</span>
+    				</div>
+    				<div class="item-inf" style="padding-left: 2%;">
+    					<div style="text-align: center;">{{ i.name }}</div>
+    					<div style="word-break: break-all; padding: 2%">{{ (i.descript)[0:60] }}...</div>
+    				</div>
+    			</div>
+    		</a>
+    		{% for e in data.keys() %}
+    		{% if data.get(e) == i %}
+    		<a href="/basket/{{ e }}/{{ i.id }}" type="button" class="btn orange-circle-btn" style="font-size: 1.4vw !important; margin: 0.5vw">В корзину</a>
+	        {% endif %}
+            {% endfor %}	    
+	    </div>
 	{% endif %}
-	{% endfor %}
+	{% endfor %}</div>
+	
 		<a href="/booking" type="button" class="btn orange-circle-btn" style="font-size: 1.4vw !important; margin: 0.5vw">Подробнее ➜</a>
 	</div>
 
 </div>
 <div>
-	<div style="display: flex; flex-direction: column; align-items: center">
+	<div style="display: flex; flex-direction: column; align-items: center; margin-top: 2%">
 		<a href="/catalog" class="headline3" style="color: black">Продукция</a>
-		<p class="section-text" style="text-align: center">Молочная продукция Мувыр - натуральный продукт, сделанный из настоящего молока настоящих коров.<br>Не верите? Приезжайте и посмотрите сами!<br>На странице <a href="/contacts">Контакты</a> указанно наше местоположение на карте<br>Уже хотите купить? Тут вы можете узнать адреса продажи!</p>
+		<p class="section-text" style="text-align: center">Молочная продукция Мувыр - натуральный продукт, сделанный из настоящего молока настоящих коров.<br>Не верите? Приезжайте и посмотрите сами!<br>На странице <a href="/contacts" style="text-decoration: none; color: #88AB75">Контакты</a> указанно наше местоположение на карте<br>Уже хотите купить? Тут вы можете узнать адреса продажи!</p>
 		<div style="display: flex; flex-direction: row; justify-content: space-around">
 			{% for i in milk %}
 
 			{% if i != None %}
-			<div class="item" style="background-color: #88AB75; align-self: flex-start;">
+			<div class="item" style="background-color: #9A8C98; align-self: flex-start;">
 				<a href="" style="display: block; text-decoration: none;">
 					<div style="margin-bottom: 0.4em; ">
-						<div style="border: 0.7vw solid #88AB75; height: 282px; width: 384px; background: url('{{ i.img }}'); background-position: center center; background-size: cover; display: flex; justify-content: center; flex-direction: column; align-items: flex-end;">
+						<div style="border: 0.7vw solid #9A8C98; height: 282px; width: 384px; background: url('{{ i.img }}'); background-position: center center; background-size: cover; display: flex; justify-content: center; flex-direction: column; align-items: flex-end;">
 							<span class="price">{{ i.cost }} руб</span>
 						</div>
 						<div class="item-inf" style="padding-left: 2%;">
 							<div style="text-align: center;">{{ i.name }}</div>
-							<div style="word-break: break-all; padding: 2%">{{ (i.descript)[0:60] }}...</div>
 						</div>
 					</div>
 				</a>
@@ -87,17 +97,17 @@
 <div style="display: flex; flex-direction: row; justify-content: center">
 	<a href="/events" class="headline3" style="color: black">Мероприятия</a>
 	<div style="display: flex; flex-direction: row; justify-content: space-between">
-	{% for i in events %}
-	{% if i != None %}
-	<div class="item" style="background-color: #88AB75; align-self: flex-start;">
+	{% for e in events %}
+	{% if e != None %}
+	<div class="item" style="background-color: #9A8C98; align-self: flex-start;">
 		<a href="" style="display: block; text-decoration: none;">
 			<div style="margin-bottom: 0.4em; ">
-				<div style="border: 0.7vw solid #88AB75; height: 282px; width: 384px; background: url('{{ i.img }}'); background-position: center center; background-size: cover; display: flex; justify-content: center; flex-direction: column; align-items: flex-end;">
-					<span class="price">{{ i.cost }} руб</span>
+				<div style="border: 0.7vw solid #9A8C98; height: 282px; width: 384px; background: url('{{ e.img }}'); background-position: center center; background-size: cover; display: flex; justify-content: center; flex-direction: column; align-items: flex-end;">
+					<span class="price">{{ e.cost }} руб</span>
 				</div>
 				<div class="item-inf" style="padding-left: 2%;">
-					<div style="text-align: center;">{{ i.name }}</div>
-					<div style="word-break: break-all; padding: 2%">{{ (i.descript)[0:60] }}...</div>
+					<div style="text-align: center;">{{ e.name }}</div>
+					<div style="word-break: break-all; padding: 2%">{{ (e.descript)[0:60] }}...</div>
 				</div>
 			</div>
 		</a>
