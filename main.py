@@ -115,18 +115,20 @@ def about():
 
 @app.route('/redactor/<mode>')
 def redactor(mode):
-    if mode == 'rental':
-        items = Rental.query.all()
-    elif mode == 'route':
-        items = Route.query.all()
-    elif mode == 'locations':
-        items = Locate.query.all()
-    elif mode == 'events':
-        items = Events.query.all()
+    if session['admin_version']:
+        if mode == 'rental':
+            items = Rental.query.all()
+        elif mode == 'route':
+            items = Route.query.all()
+        elif mode == 'locations':
+            items = Locate.query.all()
+        elif mode == 'events':
+            items = Events.query.all()
 
-    else:
-        items = Items.query.all()
-    return render_template('redactor.html', data=items, mode=mode)
+        else:
+            items = Items.query.all()
+        return render_template('redactor.html', data=items, mode=mode)
+    return redirect('/admin')
 
 
 @app.route('/booking')
@@ -277,8 +279,7 @@ def delete(type, id):
             db.session.delete(Locate.query.get(id))
         db.session.commit()
         return redirect(f'/redactor/{type}')
-    else:
-        return redirect('/admin')
+    return redirect('/admin')
 
 
 @app.route('/create/<mode>', methods=['POST', 'GET'])
@@ -342,10 +343,8 @@ def create(mode):
             else:
                 message = 'Некоректное имя файла'
                 return render_template(f'create_{mode}.html', message=message)
-        else:
-            return render_template(f'create_{mode}.html')
-    else:
-        return redirect('/admin')
+        return render_template(f'create_{mode}.html')
+    return redirect('/admin')
 
 
 @app.route('/basket/<type>/<id>')
